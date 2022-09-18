@@ -2,6 +2,8 @@ package com.gmail.controller;
 
 import java.util.List;
 
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,11 +37,12 @@ public class MailController {
 		return new ResponseEntity<String>("Mail Sent", HttpStatus.ACCEPTED);
 	}
 	
-	@GetMapping(value="/inbox")
-	public ResponseEntity<List<Mail>> inbox(Users users){
-		List<Mail> mails=mailService.getAllMails(users);
+	@PostMapping(value="/inbox")
+	public ResponseEntity<List<Mail>> inbox(@RequestBody Users users){
+		System.out.println(users.getEmailId());
+		List<Mail> mails=mailService.getAllMails(users.getEmailId());
 		
-		return new ResponseEntity<List<Mail>>(mails, HttpStatus.OK);
+		return new ResponseEntity<>(mails, HttpStatus.OK);
 		
 	}
 }

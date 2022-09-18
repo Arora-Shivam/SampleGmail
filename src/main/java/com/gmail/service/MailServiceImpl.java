@@ -21,9 +21,11 @@ public class MailServiceImpl implements MailService{
 	UsersDao usersDao;
 	
 	@Override
-	public List<Mail> getAllMails(Users user) {
+	public List<Mail> getAllMails(String mailId) {
 		// TODO Auto-generated method stub
-		Users u=usersDao.findByEmailId(user.getEmailId());
+		
+		Users u=usersDao.findByEmailId(mailId);		
+		System.out.println(u.getEmailId());
 		return u.getInbox();
 	}
 
@@ -31,12 +33,17 @@ public class MailServiceImpl implements MailService{
 	public String sendMail(Mail mail) {
 		// TODO Auto-generated method stub
 		
+		mailDao.save(mail);
 		Users sender=usersDao.findByEmailId(mail.getSender().getEmailId());
 		
 		//System.out.println(sender.getEmailId());
 		
 		List<Users> recievers=mail.getReciever();
 		
+		sender.getSentMails().add(mail);
+		System.out.println("Before saving sender");
+		usersDao.save(sender);
+		System.out.println("after "+sender.getEmailId());
 		for(Users r : recievers) {
 			Users r1=usersDao.findByEmailId(r.getEmailId());
 			r1.getInbox().add(mail);
@@ -44,13 +51,15 @@ public class MailServiceImpl implements MailService{
 			usersDao.save(r1);	
 		}
 		
-		sender.getSentMails().add(mail);
+//		sender.getSentMails().add(mail);
+//		
+//		usersDao.save(sender);
 		
-		usersDao.save(sender);
 		
-		//mailDao.save(mail);
 		
 		return "Mail Sent";
 	}
+
+	
 
 }

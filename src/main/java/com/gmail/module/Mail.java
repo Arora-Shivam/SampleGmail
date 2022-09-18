@@ -31,7 +31,7 @@ public class Mail {
 	@ManyToMany(mappedBy = "inbox")
 	private List<Users> reciever=new ArrayList<>();
 	
-	
+	 
 	@ManyToOne
 	@JsonIgnoreProperties(value={
 			"name"
@@ -41,4 +41,22 @@ public class Mail {
 	
 	private String message;
 
+	
+//	@Id
+//	@GeneratedValue(strategy = GenerationType.AUTO)
+//	private int id;
+//	
+//	
+//	private List<Users> reciever=new ArrayList<>();
+//	
+//	 
+//	
+//	@JsonIgnoreProperties(value={
+//			"name"
+//	})
+//	private Users sender;
+//	
+//	
+//	private String message;
+	
 }

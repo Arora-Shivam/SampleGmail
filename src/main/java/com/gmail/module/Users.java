@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -25,15 +26,34 @@ public class Users {
 	
 	private String name;
 	
-	@OneToMany( mappedBy = "sender")
+	@OneToMany(  mappedBy = "sender")
 	@JsonIgnore
 	List<Mail> sentMails=new ArrayList<>();
 	
-	@ManyToMany(cascade = CascadeType.ALL )
+	
+	@ManyToMany
 	@JoinTable(
 	        name = "Users_recievedMail", 
 	        joinColumns = { @JoinColumn(name = "users_id") }, 
 	        inverseJoinColumns = { @JoinColumn(name = "recieved_mail_id") }
-	    )
+	 )
 	List<Mail> inbox=new ArrayList<>();
+	
+	
+//	@Id
+//	private String emailId;
+//	
+//	
+//	private String name;
+//	
+//	@OneToMany
+//	@JsonIgnore
+//	List<Mail> sentMails=new ArrayList<>();
+//	
+//	@OneToOne
+//	@JsonIgnore
+//	private Inbox inbox;
+//	
+	
+//	List<Mail> inbox=new ArrayList<>();
 }

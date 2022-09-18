@@ -7,8 +7,10 @@ import com.gmail.module.Users;
 
 public interface MailService {
 
-	public List<Mail> getAllMails(Users user);
+	
 	
 	public String sendMail(Mail mail);
+
+	List<Mail> getAllMails(String mailId);
 
 }
